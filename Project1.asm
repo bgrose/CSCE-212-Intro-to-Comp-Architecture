@@ -40,78 +40,76 @@
 	li $v0, 5	#read 4th num
 	syscall
 	move $t3, $v0   #fourth input move
-	
-	#load x y z w
-	li $t4, 1
-	li $t5, 4
-	li $t6, 3
-	li $t7, 4
-	li $t8, 1 #Counter For Loops
-	
-		#Loop for X
-	Loop1: beq $t8, $t4, quit1
-		addi $t9, $t0, 0	#loads the adder
-		li $s4, 1	#Counter for Nexted Loops
-		j power1
-		addi $t8, $t8, 1
-		j Loop1
-		
-	power1: beq $s4, $t9, Loop1
-		add $t0, $t0, $t9
-		addi $s4, $s4, 1
-		j power1
-	quit1:
-		li $t8, 1
-	#Loop for Y
-	Loop2: beq $t8, $t5, quit2
-		addi $t9, $t0, 0	#loads the adder
-		li $s4, 1	#Counter for Nexted Loops
-		j power2
-		addi $t8, $t8, 1
-		j Loop2
-		
-	power2: beq $s4, $t9, Loop1
-		add $t1, $t1, $t9
-		addi $s4, $s4, 1
-		j power2
-	quit2:
-		li $t8, 1
-	#Loop for Z
-	Loop3: beq $t8, $t6, quit3
-		addi $t9, $t0, 0	#loads the adder
-		li $s4, 1	#Counter for Nexted Loops
-		j power3
-		addi $t8, $t8, 1
-		j Loop3
-		
-	power3: beq $s4, $t9, Loop1
-		add $t2, $t2, $t9
-		addi $s4, $s4, 1
-		j power3
-	quit3:
-		li $t8, 1
-	
-	#Loop for W
-	Loop4: beq $t8, $t7, quit4
-		addi $t9, $t0, 0	#loads the adder
-		li $s4, 1	#Counter for Nexted Loops
-		j power4
-		addi $t8, $t8, 1
-		j Loop4
-		
-	power4: beq $s4, $t9, Loop4
-		add $t3, $t3, $t9
-		addi $s4, $s4, 1
-		j power4
-	quit4:
-		li $t8, 1
 
-
-	#Add for F in ten
-	add $s0, $t0, $t1
 	
-	#Add for G in ten
-	add $s1, $t2, $t3
+   	#Finding A^1 (Wont Actually Run but Framework)
+   	li $t4, 0 #loads variable $t5 = 0
+   	ALoop1: 
+   		bge $t4, 1, AQuit1 # for i loop
+   		add $s0, $s0, $t0 #$s0 is a
+   		addi $t4, $t4, 1 # i ++
+   		j ALoop1
+   	AQuit1:
+   		li $t4, 0 #resets counter
+	
+	#Finding B^4
+	BLoop1: 
+   		bge $t4, $t1, BQuit1 # for i loop
+   		add $s1, $s1, $t1 #$s1 is b
+   		addi $t4, $t4, 1 # i ++
+   		j BLoop1
+   	BQuit1:
+   		li $t4, 0 #resets counter
+   		#Now We have B^2
+   	BLoop2:
+   		bge $t4, $s1, BQuit2 # for i loop
+   		add $s2, $s2, $s1 #$s2 is b^2
+   		addi $t4, $t4, 1 # i ++
+   		j BLoop2
+   	BQuit2:
+   		li $t4, 0 #resets counter
+   		#Now we have B^4
+   	
+   	#Finding C^3
+   	CLoop1: 
+   		bge $t4, $t2, CQuit1 # for i loop
+   		add $s5, $s5, $t2 #$s5 is c
+   		addi $t4, $t4, 1 # i ++
+   		j CLoop1
+   	CQuit1:
+   		li $t4, 0 #resets counter
+   		#Now We have C^2
+   	CLoop2: 
+   		bge $t4, $t2, CQuit2 # for i loop
+   		add $s6, $s6, $s5 #$s5 is c^2
+   		addi $t4, $t4, 1 # i ++
+   		j CLoop2
+   	CQuit2:
+   		li $t4, 0 #resets counter
+   		#Now We have C^3
+   	
+   	#Finding D^4
+	DLoop1: 
+   		bge $t4, $t3, DQuit1 # for i loop
+   		add $s3, $s3, $t3 #$s3 is d^2
+   		addi $t4, $t4, 1 # i ++
+   		j DLoop1
+   	DQuit1:
+   		li $t4, 0 #resets counter
+   		#Now We have D^2
+   	DLoop2:
+   		bge $t4, $s3, DQuit2 # for i loop
+   		add $s4, $s4, $s3 #$s4 is d^4
+   		addi $t4, $t4, 1 # i ++
+   		j DLoop2
+   	DQuit2:
+   		li $t4, 0 #resets counter
+   		#Now we have D^4
+	
+	
+	#Add for F ($S0) and G ($S1)
+	add $s0, $s0, $s2
+	add $s1, $s4, $s6
 	
 	#Print Part 1 f
 	li $v0, 4
@@ -150,12 +148,29 @@
 	
 # PART 2 BELOW
 	
-
-	# Code For Division
+	#clear values KEEP $s0, $s1 for f and g
+	li $t0, 0
+	li $t1, 0
+	li $t2, 0
+	li $t3, 0
+	li $t4, 0
+	li $s2, 0
+	li $s3, 0
+	li $s4, 0
+	li $s5, 0
+	li $s6, 0
 	
-	#s2 is quot, s3 is remain
+	add $t0, $s0, 0 #temp f
+	add $t1, $s1, 0 #temp g
 	
-		#Print Part 1 g
+	li $s2, 0 #Quotient
+	LoopQuot: bge $t1, $t0, Done
+		  sub $t0, $t0, $t1
+		  addi $s2, $s2, 1
+		  j LoopQuot
+	Done:
+	
+	#Print Part 1 
 	li $v0, 4
 	la $a0, quotient1
 	syscall
@@ -169,6 +184,6 @@
 	syscall
 	
 	li $v0, 1
-	move $a0, $s3
+	move $a0, $t0
 	syscall
 	
