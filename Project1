@@ -1,0 +1,51 @@
+.data
+	string1: .asciiz "Student ID F14304441\n"
+	string2: .asciiz "Enter the first 4 non-zero digit of Student ID seperated by enter\n"
+	decimal: .asciiz "f_ten = "
+	binary: .asciiz "f_two = "
+	decimal2: .asciiz "g_ten = "
+	binary2: .asciiz "g_two = "
+	quotient1: .asciiz "h quotient = "
+	remainder1: .asciiz "h remainder = "
+	
+	#From My ID
+	x: .word 1
+	y: .word 4
+	z: .word 3
+	w: .word 4
+	
+.text
+	#Prompt for a b c d 
+	
+	#print string1
+	li $v0, 4	
+	la $a0, string1
+	syscall
+	
+	#print string2
+	li $v0, 4	
+	la $a0, string2
+	syscall
+	
+	#load a
+	li $v0, 5	#read 1st num
+	syscall
+	move $t0, $v0   #first input move
+	
+	#load b
+	li $v0, 5	#read 2nd num
+	syscall
+	move $t1, $v0   #second input move
+	
+	#load c
+	li $v0, 5	#read 3rd num
+	syscall
+	move $t2, $v0   #third input move
+	
+	#load d
+	li $v0, 5	#read 4th num
+	syscall
+	move $t3, $v0   #fourth input move
+	
+	#load x y z w
+	li $t4 
