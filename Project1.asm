@@ -42,7 +42,7 @@
 	move $t3, $v0   #fourth input move
 
 	
-   	#Finding A^1 (Wont Actually Run but Framework)
+   	#Finding A^1 
    	li $t4, 0 #loads variable $t5 = 0
    	ALoop1: 
    		bge $t4, 1, AQuit1 # for i loop
@@ -60,7 +60,7 @@
    		j BLoop1
    	BQuit1:
    		li $t4, 0 #resets counter
-   		#Now We have B^2
+   		#Now I have B^2
    	BLoop2:
    		bge $t4, $s1, BQuit2 # for i loop
    		add $s2, $s2, $s1 #$s2 is b^2
@@ -68,7 +68,7 @@
    		j BLoop2
    	BQuit2:
    		li $t4, 0 #resets counter
-   		#Now we have B^4
+   		#Now I have B^4
    	
    	#Finding C^3
    	CLoop1: 
@@ -78,7 +78,7 @@
    		j CLoop1
    	CQuit1:
    		li $t4, 0 #resets counter
-   		#Now We have C^2
+   		#Now I have C^2
    	CLoop2: 
    		bge $t4, $t2, CQuit2 # for i loop
    		add $s6, $s6, $s5 #$s5 is c^2
@@ -86,7 +86,7 @@
    		j CLoop2
    	CQuit2:
    		li $t4, 0 #resets counter
-   		#Now We have C^3
+   		#Now I have C^3
    	
    	#Finding D^4
 	DLoop1: 
@@ -96,7 +96,7 @@
    		j DLoop1
    	DQuit1:
    		li $t4, 0 #resets counter
-   		#Now We have D^2
+   		#Now I have D^2
    	DLoop2:
    		bge $t4, $s3, DQuit2 # for i loop
    		add $s4, $s4, $s3 #$s4 is d^4
@@ -104,7 +104,7 @@
    		j DLoop2
    	DQuit2:
    		li $t4, 0 #resets counter
-   		#Now we have D^4
+   		#Now I have D^4
 	
 	
 	#Add for F ($S0) and G ($S1)
@@ -145,8 +145,9 @@
 	move $a0, $s1
 	syscall
 	
-	
+#######################
 # PART 2 BELOW
+#######################
 	
 	#clear values KEEP $s0, $s1 for f and g
 	li $t0, 0
@@ -163,20 +164,28 @@
 	add $t0, $s0, 0 #temp f
 	add $t1, $s1, 0 #temp g
 	
-	li $s2, 0 #Quotient
-	LoopQuot: bge $t1, $t0, Done
-		  sub $t0, $t0, $t1
-		  addi $s2, $s2, 1
+	li $t0, 0 #Quotient
+	LoopQuot: bge $s1, $s0, Done
+		  sub $s0, $s0, $s1
+		  addi $t0, $t0, 1
 		  j LoopQuot
 	Done:
-	
+	 beq $s1, $s0, Same
+	 j DoneFin
+	 
+	 #Fix for BEQ Not Sure problem
+	Same:
+		addi $t0, $t0, 1
+		sub $s0, $s0, $s1
+		
+	DoneFin:
 	#Print Part 1 
 	li $v0, 4
 	la $a0, quotient1
 	syscall
 	
 	li $v0, 1
-	move $a0, $s2
+	move $a0, $t0
 	syscall
 	
 	li $v0, 4
@@ -184,6 +193,6 @@
 	syscall
 	
 	li $v0, 1
-	move $a0, $t0
+	move $a0, $s0
 	syscall
 	
