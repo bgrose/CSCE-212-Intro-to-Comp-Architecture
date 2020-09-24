@@ -1,3 +1,9 @@
+##########################
+# Bradley Grose
+# Project 1
+# CSCE 212 with Dr. Wang
+##########################
+
 .data
 	string1: .asciiz "Student ID F14304441\n"
 	string2: .asciiz "Enter the first 4 non-zero digit of Student ID seperated by enter\n"
@@ -160,6 +166,9 @@
 	li $s4, 0
 	li $s5, 0
 	li $s6, 0
+	
+	add $t0, $s0, 0 #temp f
+	add $t1, $s1, 0 #temp g
 	
 	li $t0, 0 #Quotient
 	LoopQuot: bge $s1, $s0, Done
