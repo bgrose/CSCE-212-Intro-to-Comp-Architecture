@@ -1,11 +1,11 @@
 ##########################
 # Bradley Grose
-# Project 1
+# Project 3
 # CSCE 212 with Dr. Wang
 ##########################
 
 .data
-	statement: .asciiz "The South Carolina Gamecocks football program represents the University of South Carolina in the sport of American football. The Gamecocks "
+	statement: .asciiz "Athletic Association (NCAA) and the Eastern Division of the Southeastern Conference. Will Muschamp currently serves as the team's head coach. "
 	prompt1: .asciiz "Please input first word: "
 	prompt2: .asciiz "Please input second word: "
 	colonspace: .asciiz ": " #For Output of String and Result
@@ -14,7 +14,7 @@
 	newline: .asciiz "\n"	 #Creates a new line of seperation
 	
 .text
-main:
+Main:
 	#Prompt and Collect words
 	# 16 Char limit is in A1 (17)
 	li $v0,4			
@@ -74,17 +74,9 @@ increase1:
 	la $t1, firstWord	#reset the word looking
 	j searchFirstWord	#continue searching
 end1: 	
-	la $t0, firstWord	#end of loop, set first word to 
-count1Loop:
-	lb $a0,($t0)             #Loads the first ketter byte into a0
-	beq $a0,'\n',print1	# If its no longer text, go to print
-	jal toUpper		# char to upper
-	move $a0, $v0		
-	li $v0,11
-   	syscall			#Prints out letter for word	
-   	addi $t0,$t0,1		#Moves forward 1 char
-   	j count1Loop		#loops til printed
-print1:
+	li $v0,4			
+	la $a0,firstWord		#Print Prompt 1
+	syscall	
 	la $a0, colonspace	#Prints the ": "
 	li $v0, 4
 	syscall
@@ -134,18 +126,9 @@ increase2:
 	la $t2, secondWord	#reset the word looking
 	j searchSecondWord	#continue searching
 end2: 
-	la $t0, secondWord	#end of loop, set first word to
-count2Loop:
-	lb $a0,($t0)		#Loads the first ketter byte into a0
-	beq $a0,'\n',print2	# If its no longer text, go to print
-	jal toUpper		# char to upper
-	move $a0, $v0
-	li $v0,11
-   	syscall			#Prints out letter for word	
-   	addi $t0,$t0,1		#Moves forward 1 char
-   	j count2Loop		#loops til printed
-   
-print2:
+	li $v0,4			
+	la $a0,secondWord		#Print Prompt 1
+	syscall	
 	la $a0, colonspace	# prints ": "
 	li $v0, 4
 	syscall
