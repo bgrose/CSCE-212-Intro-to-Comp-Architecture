@@ -2,8 +2,8 @@
 # Name: Bradley Grose
 # Created: 11/11/2020 (REVISED 11/27/2020)
 # Purpose: Collect 4 Integer Value s and Calculate out the value of f and g and print
-# f: f=(0.1×A^4)-(0.2×B^3)+(0.3×C^2)-(0.4×D)
-# g: g= (0.1×AB^2)+(0.2×C^2D^3)
+# f: f=(0.1ï¿½A^4)-(0.2ï¿½B^3)+(0.3ï¿½C^2)-(0.4ï¿½D)
+# g: g= (0.1ï¿½AB^2)+(0.2ï¿½C^2D^3)
 # Test with {15, 9, 21, 3} should return {5050.392, 2502.6116} FIXED F OUTPUT
 # Errors Running Code: None that I know of
 # Input: 4 Integer Values through Syscall
@@ -46,11 +46,11 @@ syscall		# read integer
 move $t4,$v0	# assign to t4
 
 ########################
-# Solve for f=(0.1×A^4)-(0.2×B^3)+(0.3×C^2)-(0.4×D)
+# Solve for f=(0.1ï¿½A^4)-(0.2ï¿½B^3)+(0.3ï¿½C^2)-(0.4ï¿½D)
 ########################
 
 ####
-# (0.1×A^4) using power fucntion and multiplier float procedures
+# (0.1ï¿½A^4) using power fucntion and multiplier float procedures
 ####
 
 move $s0, $t1	#Moves A to s0
@@ -63,7 +63,7 @@ jal multipFloat	#Multip
 mov.s $f4, $f2	#Moves result to $f4
 
 ####
-# (0.2×B^3) using power fucntion and multiplier float procedures
+# (0.2ï¿½B^3) using power fucntion and multiplier float procedures
 ####
 move $s0, $t2	#Moves B to s0
 li $s1, 3	#Loads in the exp.
@@ -75,7 +75,7 @@ jal multipFloat	#Multip
 mov.s $f5, $f2	#Moves result to $f5
 
 ####
-# (0.3×C^2)using power fucntion and multiplier float procedures
+# (0.3ï¿½C^2)using power fucntion and multiplier float procedures
 ####
 move $s0, $t3	#Moves C to s0
 li $s1, 2	#Loads in the exp.
@@ -87,7 +87,7 @@ jal multipFloat	#Multip
 mov.s $f6, $f2	#Moves result to $f6
 
 ####
-# (0.4×D)using power fucntion and multiplier float procedures
+# (0.4ï¿½D)using power fucntion and multiplier float procedures
 ####
 move $s1, $t4	#Moves C to s0
 la $a0, coefic  #Loads in the coefic second value
@@ -115,11 +115,11 @@ mov.s $f12,$f3	# Moves f to $f12 to print
 syscall		# prints value
 
 ########################
-# Solve for G g= (0.1×AB^2)+(0.2×C^2D^3)
+# Solve for G g= (0.1ï¿½AB^2)+(0.2ï¿½C^2D^3)
 ########################
 
 ####
-# (0.1×AB^2) using power fucntion and both multiplier procedures
+# (0.1ï¿½AB^2) using power fucntion and both multiplier procedures
 ####
 
 move $s0, $t2	#Move B to S0
@@ -135,7 +135,7 @@ jal multipFloat	#Multip
 mov.s $f4, $f2  #Result into F4
 
 ####
-#(0.2×C^2D^3) using power fucntion and both multiplier procedures
+#(0.2ï¿½C^2D^3) using power fucntion and both multiplier procedures
 ####
 move $s0, $t3	#Move C to S0
 li $s1, 2	#Loads in the exponent
@@ -157,7 +157,7 @@ mov.s $f5, $f2  #Result into F5
 # Add it all Together using add.s
 ####
 
-add.s $f3, $f4, $f5	# g = (0.1×AB^2) + (0.2×C^2D^3)
+add.s $f3, $f4, $f5	# g = (0.1ï¿½AB^2) + (0.2ï¿½C^2D^3)
 
 ########################
 # Print Out G using syscall
@@ -219,7 +219,7 @@ multipFloat:
 li $t5, 0		#Resets Loop for Multiplication
 l.s $f2, zero		#Sets output to 0.0
 Loop3:
-slt $t0,$t5,$s1		#Set $t0 to 1 if t5 is less then s1		
+slt $t0,$t5,$s1		#Set $t0 to 1 if t5 is less then s1, 0 else		
 beq $t0,$zero,doneFP	#if t0 is 0, exit		
 add.s $f2,$f2,$f0	# f2 += $f0	
 addi $t5,$t5,1		# t5++	
@@ -238,7 +238,7 @@ multipInts:
 li $t5,0 		#Loop to 0	
 li $s2,0			#Return to 0
 Loop4:			
-slt $t0,$t5,$s1		# if $t5 < $f1, t0 = 1
+slt $t0,$t5,$s1		# if $t5 is  less then $f1, t0 = 1
 beq $t0,$zero,doneInt	# If T0 is 0, then return value
 add $s2,$s2,$s0		# s2 += s0
 addi $t5,$t5,1		# i++ for the loop
